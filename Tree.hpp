@@ -1,11 +1,8 @@
 #include <iostream>
 
-
-
 namespace ariel {
 
 using namespace std;
-
 
     struct Node {
         int val;
