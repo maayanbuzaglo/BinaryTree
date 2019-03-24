@@ -17,14 +17,14 @@ using namespace std;
         public:
         Tree();
         ~Tree();
-        Tree insert (int num);
-        void  remove (int num);
-        int size ();
-        bool contains (int num);
-        int root ();
-        int parent (int num);
-        int left (int num);
-        int right (int num);
-        void print ();
+        Tree insert(int num);
+        void  remove(int num);
+        int size();
+        bool contains(int num);
+        int root();
+        int parent(int num);
+        int left(int num);
+        int right(int num);
+        void print();
     };
 }
