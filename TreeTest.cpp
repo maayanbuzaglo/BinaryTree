@@ -49,48 +49,41 @@ int main() {
   .CHECK_THROWS(emptytree.insert(10)) // checks if it throws exeption because there is already 10 in the tree.
   .CHECK_EQUAL (emptytree.size() ,3) // checks if the size of the tree is 3.
   .CHECK_EQUAL (emptytree.root(), 10) // checks if the root of the tree is 10.
-
-  .CHECK_EQUAL (emptytree.parent(7), 10)
-  .CHECK_EQUAL (emptytree.parent(12), 10)
-  .CHECK_EQUAL (emptytree.left(10), 7)
-  .CHECK_EQUAL (emptytree.right(10), 12)
+  .CHECK_EQUAL (emptytree.parent(7), 10) // checks if 10 is the parent of 7.
+  .CHECK_EQUAL (emptytree.parent(12), 10) // checks if 10 is the parent of 12.
+  .CHECK_EQUAL (emptytree.left(10), 7) // checks if 7 is the left son of 10.
+  .CHECK_EQUAL (emptytree.right(10), 12) // checks if 12 is the right son of 10.
   .CHECK_EQUAL (emptytree.contains(3), false)
-  .CHECK_OK (emptytree.insert(3))
+  .CHECK_OK (emptytree.insert(3)) //checks if it insert 3 good.
   .CHECK_EQUAL (emptytree.contains(3), true)
+
   .CHECK_EQUAL (emptytree.contains(2), false)
-  .CHECK_OK (emptytree.insert(2))
+  .CHECK_OK (emptytree.insert(2)) //checks if it insert 2 good.
   .CHECK_EQUAL (emptytree.contains(2), true)
+
   .CHECK_EQUAL (emptytree.contains(6), false)
-  .CHECK_OK (emptytree.insert(6))
+  .CHECK_OK (emptytree.insert(6)) //checks if it insert 7 good.
   .CHECK_EQUAL (emptytree.contains(6), true)
-  .CHECK_EQUAL (emptytree.size() ,6)
-  .CHECK_EQUAL (emptytree.parent(6), 3)
-  .CHECK_EQUAL (emptytree.left(3), 2)
-  .CHECK_OK(emptytree.remove(3))
+  .CHECK_THROWS(emptytree.insert(6)) // checks if it throws exeption because there is already 6 in the tree.
+  .CHECK_EQUAL (emptytree.size() ,6) // checks if the size of the tree is 6.
+  .CHECK_EQUAL (emptytree.parent(6), 3) // checks if 3 is the parent of 6.
+  .CHECK_EQUAL (emptytree.left(3), 2) // checks if 2 is the left son of 3.
+  .CHECK_OK(emptytree.remove(3)) // check if it remove 3 good.
   .CHECK_EQUAL (emptytree.contains(3), false)
-  .CHECK_EQUAL (emptytree.size() ,5)
-  .CHECK_EQUAL (emptytree.parent(6), 2)
-  .CHECK_EQUAL (emptytree.left(7), 2)
-  .CHECK_EQUAL (emptytree.right(2), 6)
+  .CHECK_EQUAL (emptytree.size() ,5) // checks if the size of the tree is 5.
+  .CHECK_EQUAL (emptytree.parent(6), 2) // checks if 2 is the parent of 6.
+  .CHECK_EQUAL (emptytree.left(7), 2) // checks if 2 is the left son of 7.
+  .CHECK_EQUAL (emptytree.right(2), 6) // checks if 6 is the right son of 2.
   .CHECK_THROWS(emptytree.left(2)) // checks if it throws exeption because 2 doesn't have a left son.
-  .CHECK_OK(emptytree.remove(10))
+  .CHECK_OK(emptytree.remove(10)) // check if it remove 10 good.
   .CHECK_EQUAL (emptytree.contains(10), false)
-  .CHECK_EQUAL (emptytree.root(), 7) 
-  .CHECK_EQUAL (emptytree.size() ,4)
-  .CHECK_EQUAL (emptytree.parent(12), 7)
+
+  .CHECK_EQUAL (emptytree.root(), 7) // checks if the root of the tree is 7.
+  .CHECK_EQUAL (emptytree.size() ,4) // checks if the size of the tree is 4.
+  .CHECK_EQUAL (emptytree.parent(12), 7) // checks if 7 is the parent of 12.
   .CHECK_THROWS(emptytree.parent(7)) // checks if it throws exeption because 7 is the root so he don't have a parent.
 
-
-
-
-
-
-
-
-
-  .CHECK_THROWS(emptytree.parent(10))
-
-  .CHECK_OK (emptytree.print())
+  .CHECK_OK (emptytree.print()) // Checks if it prints good.
 
   .print();
   
