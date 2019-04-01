@@ -218,9 +218,6 @@ void print2(Node *root, int space)
     cout << endl;  
     for(int i = COUNT; i < space; i++) cout << " ";
 
-
-
-//nahama try  
     cout << root->data << "\n";  
   
     print2(root->left, space);  
