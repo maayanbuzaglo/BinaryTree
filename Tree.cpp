@@ -11,6 +11,7 @@ using namespace ariel;
 Tree::Tree()
 {
     Tree treeRoot = nullptr;
+    int size = 0;
 }
 
 /*
@@ -18,19 +19,19 @@ Tree::Tree()
 */
 Tree::~Tree()
 {
-    Tree::delete(treeRoot);
+    Tree::delet(treeRoot);
 }
 
 /*
 *This function helps the disconstructor.
 *It deletes all the tree by recursive calls.
 */
-void Tree::delete(node *root)
+void Tree::delet(node *root)
 {
     if(root != nullptr)
     {
-        Tree::delete(root->rightSon);
-        Tree::delete(root->leftSon);
+        Tree::delet(root->rightSon);
+        Tree::delet(root->leftSon);
     }
     delete root;
 }
@@ -67,6 +68,7 @@ void Tree::insert(int num)
         }
         buffer->data = num;
     }
+    size++;
 }
 
 /*
@@ -82,7 +84,7 @@ void Tree::remove(int num)
 */
 int Tree::size()
 { 
-    return Size;
+    return size;
 }
 
 /*
