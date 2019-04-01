@@ -106,7 +106,7 @@ bool Tree::contains2(int num, Node *root)
     {
         return false;
     }
-    if(root->data == num) return true; //Check if the the root data = num.
+    if(root->data == num) return true; //Check if the root data = num.
     else
     {
         if(num < root->data) //If the root data is smaller go to leftSon.
@@ -138,11 +138,12 @@ int Tree::root()
 int Tree::parent(int num)
 {
     if(!contains(num)) __throw_invalid_argument("The value is not in the tree.");
+    if (num == treeRoot->data) __throw_invalid_argument("The value is the root of the tree.");
     Node *parent = treeRoot;
     Node *buffer = treeRoot;
     while(buffer->data != num)
     {
-        if(buffer->data > num)
+        if(buffer->data < num)
         {
             buffer = buffer->rightSon;
         }
@@ -164,7 +165,7 @@ int Tree::left(int num)
     Node *buffer = treeRoot;
     while(buffer->data != num)
     {
-        if(buffer->data > num)
+        if(buffer->data < num)
         {
             buffer = buffer->rightSon;
         }
@@ -172,8 +173,8 @@ int Tree::left(int num)
         {
             buffer = buffer->leftSon;
         }
-        if(buffer->data != num) parent = buffer;
     }
+    if (buffer->leftSon == nullptr) __throw_invalid_argument("The value dosn't have a left son.");
     return buffer->leftSon->data;
 }
 
@@ -186,7 +187,7 @@ int Tree::right(int num)
     Node *buffer = treeRoot;
     while(buffer->data != num)
     {
-        if(buffer->data > num)
+        if(buffer->data < num)
         {
             buffer = buffer->rightSon;
         }
@@ -194,8 +195,8 @@ int Tree::right(int num)
         {
             buffer = buffer->leftSon;
         }
-        if(buffer->data != num) parent = buffer;
     }
+    if (buffer->rightSon == nullptr) __throw_invalid_argument("The value dosn't have a right son.");
     return buffer->rightSon->data;
 }
 
