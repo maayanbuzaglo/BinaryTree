@@ -5,20 +5,21 @@ namespace ariel {
 using namespace std;
 
     struct Node {
-        int val;
-        Node* left;
-        Node* right;
+        int data; //change.
+        Node* rightSon;
+        Node* leftSon;
     };
 
     class Tree {
+
         private:
-        Node* rootTree;
+        Node* treeRoot;
 
         public:
         Tree();
         ~Tree();
-        Tree insert(int num);
-        void  remove(int num);
+        void insert(int num);
+        void remove(int num);
         int size();
         bool contains(int num);
         int root();
