@@ -44,20 +44,23 @@ void Tree::treeDelete(Node *root)
 
 void Tree::insert(int num)
 {
-    insert2(num, treeRoot);
+    if(contains(num)) __throw_invalid_argument("The value is already in the tree."); // Throw an exeption if the value is already in the tree.
+    else
+    {
+        insert2(num, treeRoot);
+    }
 }
 
 /*
 *This function help the inserts function to insert the value to the right place in the tree.
 */
 
-void insert2(int num, Node *parent)
+void Tree::insert2(int num, Node *parent)
 {
     if(treeRoot == NULL) // Checkin if the tree is empty.
     {
         treeRoot = addNewLeaf(num);
     }
-    if (contains(num)) __throw_invalid_argument("The value is already in the tree.\n"; // Throw an exeption if the value is already in the tree.
     else if(num < parent->data) //If the parent data is biger go to left son.
     {
         if(parent->leftSon != NULL) 
@@ -103,7 +106,7 @@ void Tree::remove(int num)
 {
     if (contains(num))
     {
-        remove2(num, root);
+        remove2(num, treeRoot);
     }
     else
     {
@@ -117,19 +120,19 @@ void Tree::remove(int num)
 void Tree::remove2(int num, Node *parent)
 {
 
-    if(treeRoot->data = num)
+    if(treeRoot->data == num)
     {
         removeRoot(); //If the number = root - delete the root.
     }
     else
     {
-        if(num < parent->data && parent->leftSon != nullptr) //Checks if the value needs to be on the left side.
+        if(num < parent->data && parent->leftSon != NULL) //Checks if the value needs to be on the left side.
         {
             parent->leftSon->data == num ?
             removeNum(parent, parent->leftSon, true):
             remove2(num, parent->leftSon); //Gets down untill we find the value.
         }
-        else if(num > parent->data && parent->rightSon != nullptr) //Checks if the value needs to be on the right side.
+        else if(num > parent->data && parent->rightSon != NULL) //Checks if the value needs to be on the right side.
         {
             parent->rightSon->data == num ?
             removeNum(parent, parent->rightSon, true):
@@ -149,16 +152,16 @@ void Tree::remove2(int num, Node *parent)
 
 void Tree::removeNum(Node *parent, Node *node, bool left)
 {
-    if(root != nullptr)
+    if(treeRoot != NULL)
     {
         Node *delPtr;
-        int numKey = num->data;
+        int numKey = node->data;
         int smallInRight;
 
         //If no children:
-        if(node->leftSon == nullptr && node->rightSon == nullptr)
+        if(node->leftSon == NULL && node->rightSon == NULL)
         {
-            delPtr = num;
+            delPtr = node;
             left == true ?
             parent->leftSon = nullptr:
             parent->rightSon = nullptr;
@@ -167,7 +170,7 @@ void Tree::removeNum(Node *parent, Node *node, bool left)
             treeSize--;
         }
         //If 1 child:
-        else if(node->leftSon == nullptr && node->rightSon != nullptr)
+        else if(node->leftSon == NULL && node->rightSon != NULL)
         {
             left = true ?
             parent->leftSon = node->rightSon:
@@ -178,12 +181,12 @@ void Tree::removeNum(Node *parent, Node *node, bool left)
             cout << "The number was removed." << endl;
             treeSize--;
         }
-        else if(node->leftSon != nullptr && node->rightSon == nullptr)
+        else if(node->leftSon != NULL && node->rightSon == NULL)
         {
             left = true ?
             parent->leftSon = node->leftSon:
             parent->rightSon = node->leftSon;
-            node->leftSon = nullptr;
+            node->leftSon = NULL;
             delPtr = node;
             delete delPtr;
             cout << "The number was removed." << endl;
@@ -235,7 +238,7 @@ void Tree::removeRoot()
     }
     else //If the root have 2 childrens.
     {
-        smallRightRoot = fineSmallest2(treeRoot->rightSon);
+        smallRightRoot = findSmallest2(treeRoot->rightSon);
         remove2(smallRightRoot, treeRoot); // removing the smallest value in the right subtree.
         treeRoot->data = smallRightRoot;
 
@@ -248,7 +251,7 @@ This function finds the smallest number in the right subtree.
 
 int Tree::findSmallest()
 {
-    findSmallest2(treeRoot);
+    return findSmallest2(treeRoot);
 }
 
 int Tree::findSmallest2(Node *parent)
@@ -263,15 +266,6 @@ int Tree::findSmallest2(Node *parent)
     }
 }
 
-
-
-/*
-*This function removes the number it gets from the tree.
-*/
-void Tree::remove(int num)
-{
-
-}
 
 /*
 *This function returns the size of the tree.

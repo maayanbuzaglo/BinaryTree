@@ -14,14 +14,15 @@ using namespace std;
 
         private:
         Node* treeRoot;
+        
         void insert2(int num, Node *parent);
         bool contains2(int num, Node *root);
         void print2(Node *root, int space);
         void treeDelete(Node *root);
         Node* addNewLeaf(int num);
         void removeRoot();
-        void removeNum(Node *parent, Node *node, bool left)
-        void remove2(int num, Node *parent)
+        void removeNum(Node *parent, Node *node, bool left);
+        void remove2(int num, Node *parent);
         int findSmallest();
         int findSmallest2(Node *parent);
 
