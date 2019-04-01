@@ -4,14 +4,16 @@
 
 using namespace ariel;
 #define COUNT 10
+Node *treeRoot;
+int treeSize;
 
 /*
 *An empty constructor.
 */
 Tree::Tree()
 {
-    Tree treeRoot = nullptr;
-    int size = 0;
+    treeRoot = nullptr;
+    treeSize = 0;
 }
 
 /*
@@ -19,21 +21,21 @@ Tree::Tree()
 */
 Tree::~Tree()
 {
-    Tree::delet(treeRoot);
+    Tree::treeDelete(treeRoot);
 }
 
 /*
 *This function helps the disconstructor.
 *It deletes all the tree by recursive calls.
 */
-void Tree::delet(node *root)
+void Tree::treeDelete(Node *root)
 {
     if(root != nullptr)
     {
-        Tree::delet(root->rightSon);
-        Tree::delet(root->leftSon);
+        Tree::treeDelete(root->rightSon);
+        Tree::treeDelete(root->leftSon);
+        delete root;
     }
-    delete root;
 }
 
 /*
@@ -41,7 +43,7 @@ void Tree::delet(node *root)
 */
 void Tree::insert(int num)
 { 
-    if (contains(num) == true)
+    if (Tree::contains(num) == true)
     {
         throw std::invalid_argument("Your value is already in the tree.");
     }
@@ -68,7 +70,7 @@ void Tree::insert(int num)
         }
         buffer->data = num;
     }
-    size++;
+    treeSize++;
 }
 
 /*
@@ -84,7 +86,7 @@ void Tree::remove(int num)
 */
 int Tree::size()
 { 
-    return size;
+    return treeSize;
 }
 
 /*
@@ -92,7 +94,7 @@ int Tree::size()
 */
 bool Tree::contains(int num)
 {
-    return contains2(num, treeRoot);
+    return Tree::contains2(num, treeRoot);
 }
 
 /*
@@ -111,11 +113,11 @@ bool Tree::contains2(int num, Node *root)
     {
         if(num < root->data) //If the root data is smaller go to leftSon.
         {
-            return contains2(num, root->leftSon)
+            return Tree::contains2(num, root->leftSon);
         }
         else //If the root data is smaller go to rightSon.
         {
-            return contains2(num, root->rightSon)
+            return Tree::contains2(num, root->rightSon);
         }
     }
 }
@@ -137,7 +139,7 @@ int Tree::root()
 */
 int Tree::parent(int num)
 {
-    if(!contains(num)) __throw_invalid_argument("The value is not in the tree.");
+    if(!Tree::contains(num)) __throw_invalid_argument("The value is not in the tree.");
     if (num == treeRoot->data) __throw_invalid_argument("The value is the root of the tree.");
     Node *parent = treeRoot;
     Node *buffer = treeRoot;
@@ -161,7 +163,7 @@ int Tree::parent(int num)
 */
 int Tree::left(int num)
 {
-    if(!contains(num)) __throw_invalid_argument("The value is not in the tree.");
+    if(!Tree::contains(num)) __throw_invalid_argument("The value is not in the tree.");
     Node *buffer = treeRoot;
     while(buffer->data != num)
     {
@@ -183,7 +185,7 @@ int Tree::left(int num)
 */
 int Tree::right(int num)
 {
-    if(!contains(num)) __throw_invalid_argument("The value is not in the tree.");
+    if(!Tree::contains(num)) __throw_invalid_argument("The value is not in the tree.");
     Node *buffer = treeRoot;
     while(buffer->data != num)
     {
@@ -205,23 +207,23 @@ int Tree::right(int num)
 */
 void Tree::print()
 {
-    print2(treeRoot, 0); 
+    Tree::print2(treeRoot, 0); 
 }
 
 /*
 *This function helps the print function.
 */
-void print2(Node *root, int space)  
+void Tree::print2(Node *root, int space)  
 {  
     if (root == NULL) return;
 
     space += COUNT;    
-    print2(root->right, space);  
+    Tree::print2(root->rightSon, space);  
   
     cout << endl;  
     for(int i = COUNT; i < space; i++) cout << " ";
 
     cout << root->data << "\n";  
   
-    print2(root->left, space);  
+    Tree::print2(root->leftSon, space); 
 }   
