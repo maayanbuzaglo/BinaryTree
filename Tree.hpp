@@ -21,11 +21,11 @@ using namespace std;
         void print2(Node *root, int space);
         void treeDelete(Node *root);
         Node* addNewLeaf(int num);
-        void removeRoot();
-        void removeNum(Node *parent, Node *node, bool left);
-        void remove2(int num, Node *parent);
-        int findSmallest();
-        int findSmallest2(Node *parent);
+        // void removeRoot();
+        // void removeNum(Node *parent, Node *node, bool left);
+        Node* remove2(int num, Node *parent);
+        Node* findSmallest(Node* root);
+        Node* findSmallest2(Node *parent);
 
 
 

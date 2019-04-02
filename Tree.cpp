@@ -101,6 +101,33 @@ Node* Tree::addNewLeaf(int num)
     return newLeaf;
 }
 
+Node* Tree::remove2(int num, Node* root)
+    {
+        Node* temp;
+        if(root == NULL)
+            return NULL;
+        else if(num < root->data)
+            root->leftSon = remove2(num, root->leftSon);
+        else if(num > root->data)
+            root->rightSon = remove2(num, root->rightSon);
+        else if(root->leftSon && root->rightSon)
+        {
+            temp = findSmallest(root->rightSon);//
+            root->data = temp->data;
+            root->rightSon = remove2(root->data, root->rightSon);
+        }
+        else
+        {
+            temp = root;
+            if(root->leftSon == NULL)
+                root = root->rightSon;
+            else if(root->rightSon == NULL)
+                root = root->leftSon;
+            delete temp;
+        }
+        return root;
+}
+
 /*
 *This function removes the number it gets from the tree.
 */
@@ -110,6 +137,7 @@ void Tree::remove(int num)
     {
         Node *ptr = treeRoot;
         remove2(num, ptr);
+        treeSize--;
     }
     else
     {
@@ -117,146 +145,144 @@ void Tree::remove(int num)
     }
 }
 
-/*
-*This function helps the remove function.
-*/
-void Tree::remove2(int num, Node *parent)
-{
-    if(treeRoot->data == num)
-    {
-        removeRoot(); //If the number = root - delete the root.
-    }
-    else
-    {
-        if(num < parent->data && parent->leftSon != NULL) //Checks if the value needs to be on the left side.
-        {
-            parent->leftSon->data == num ?
-            removeNum(parent, parent->leftSon, true):
-            remove2(num, parent->leftSon); //Gets down untill we find the value.
-        }
-        else if(num > parent->data && parent->rightSon != NULL) //Checks if the value needs to be on the right side.
-        {
-            parent->rightSon->data == num ?
-            removeNum(parent, parent->rightSon, false):
-            remove2(num, parent->rightSon); //Gets down untill we find the value.
-        }
-        else
-        {
-            cout << "The number is not in the tree." << endl;
-        }
+// /*
+// *This function helps the remove function.
+// */
+// void Tree::remove2(int num, Node *parent)
+// {
+//     if(treeRoot->data == num)
+//     {
+//         removeRoot(); //If the number = root - delete the root.
+//     }
+//     else
+//     {
+//         if(num < parent->data && parent->leftSon != NULL) //Checks if the value needs to be on the left side.
+//         {
+//             parent->leftSon->data == num ?
+//             removeNum(parent, parent->leftSon, true):
+//             remove2(num, parent->leftSon); //Gets down untill we find the value.
+//         }
+//         else if(num > parent->data && parent->rightSon != NULL) //Checks if the value needs to be on the right side.
+//         {
+//             parent->rightSon->data == num ?
+//             removeNum(parent, parent->rightSon, false):
+//             remove2(num, parent->rightSon); //Gets down untill we find the value.
+//         }
+//         else
+//         {
+//             cout << "The number is not in the tree." << endl;
+//         }
             
-    }
-}
+//     }
+// }
 
-/*
-*This function helps the remove function.
-*/
-void Tree::removeNum(Node *parent, Node *son, bool left)
-{
-    if(treeRoot != NULL)
-    {
-        Node *delPtr;
-        int sonKey = son->data;
-        int smallInRight;
+// /*
+// *This function helps the remove function.
+// */
+// void Tree::removeNum(Node *parent, Node *son, bool left)
+// {
+//     if(treeRoot != NULL)
+//     {
+//         Node *delPtr;
+//         int sonKey = son->data;
+//         int smallInRight;
 
-        //If no children:
-        if(son->leftSon == NULL && son->rightSon == NULL)
-        {
-            delPtr = son;
-            left == true ?
-            parent->leftSon = nullptr:
-            parent->rightSon = nullptr;
-            delete delPtr;
-            cout << "The number was removed." << endl;
-            treeSize--;
-        }
-        //If 1 child:
-        else if(son->leftSon == NULL && son->rightSon != NULL)
-        {
-            left = true ?
-            parent->leftSon = son->rightSon:
-            parent->rightSon = son->rightSon;
-            son->rightSon = nullptr;
-            delPtr = son;
-            delete delPtr;
-            cout << "The number was removed." << endl;
-            treeSize--;
-        }
-        else if(son->leftSon != NULL && son->rightSon == NULL)
-        {
-            left = true ?
-            parent->leftSon = son->leftSon:
-            parent->rightSon = son->leftSon;
-            son->leftSon = NULL;
-            delPtr = son;
-            delete delPtr;
-            cout << "The number was removed." << endl;
-            treeSize--;
-        }
-        //If 2 children:
-        else
-        {
-            smallInRight = findSmallest2(son);
-            remove2(smallInRight, son);
-            son->data = smallInRight;
-            // delete son->leftSon;
-        }
-    }
-    else
-    {
-        cout << "The tree is empty." << endl;
-    }   
-}
+//         //If no children:
+//         if(son->leftSon == NULL && son->rightSon == NULL)
+//         {
+//             delPtr = son;
+//             left == true ?
+//             parent->leftSon = nullptr:
+//             parent->rightSon = nullptr;
+//             delete delPtr;
+//             cout << "The number was removed." << endl;
+//             treeSize--;
+//         }
+//         //If 1 child:
+//         else if(son->leftSon == NULL && son->rightSon != NULL)
+//         {
+//             left = true ?
+//             parent->leftSon = son->rightSon:
+//             parent->rightSon = son->rightSon;
+//             son->rightSon = nullptr;
+//             delPtr = son;
+//             delete delPtr;
+//             cout << "The number was removed." << endl;
+//             treeSize--;
+//         }
+//         else if(son->leftSon != NULL && son->rightSon == NULL)
+//         {
+//             left = true ?
+//             parent->leftSon = son->leftSon:
+//             parent->rightSon = son->leftSon;
+//             son->leftSon = NULL;
+//             delPtr = son;
+//             delete delPtr;
+//             cout << "The number was removed." << endl;
+//             treeSize--;
+//         }
+//         //If 2 children:
+//         else
+//         {
+//             smallInRight = findSmallest2(son);
+//             remove2(smallInRight, son);
+//             son->data = smallInRight;
+//             // delete son->leftSon;
+//         }
+//     }
+//     else
+//     {
+//         cout << "The tree is empty." << endl;
+//     }   
+// }
 
-/*
-*This function helps the remove function.
-*/
+// /*
+// *This function helps the remove function.
+// */
+// void Tree::removeRoot()
+// {
+//     Node* deleteLeaf = treeRoot;
+//     int rootData  = treeRoot->data;
+//     int smallRightRoot;
 
-void Tree::removeRoot()
-{
-    Node* deleteLeaf = treeRoot;
-    int rootData  = treeRoot->data;
-    int smallRightRoot;
+//     if(treeRoot->leftSon == NULL && treeRoot->rightSon == NULL) // If the root don't have childrens.
+//     {
+//         treeRoot = NULL;
+//         delete deleteLeaf;
+//         treeSize--;
+//     }
+//     else if (treeRoot->leftSon == NULL && treeRoot->rightSon !=NULL) // If the root have only a right child.
+//     {
+//         treeRoot = treeRoot->rightSon;
+//         deleteLeaf->rightSon = NULL;
+//         delete deleteLeaf;
+//         treeSize--;
+//     }
+//     else if (treeRoot->rightSon == NULL && treeRoot->leftSon !=NULL) // If the root have only a left child.
+//     {
+//         treeRoot = treeRoot->leftSon;
+//         deleteLeaf->leftSon = NULL;
+//         delete deleteLeaf;
+//         treeSize--;
+//     }
+//     else //If the root have 2 childrens.
+//     {
+//         smallRightRoot = findSmallest2(treeRoot->rightSon);
+//         remove2(smallRightRoot, treeRoot); // removing the smallest value in the right subtree.
+//         treeRoot->data = smallRightRoot;
 
-    if(treeRoot->leftSon == NULL && treeRoot->rightSon == NULL) // If the root don't have childrens.
-    {
-        treeRoot = NULL;
-        delete deleteLeaf;
-        treeSize--;
-    }
-    else if (treeRoot->leftSon == NULL && treeRoot->rightSon !=NULL) // If the root have only a right child.
-    {
-        treeRoot = treeRoot->rightSon;
-        deleteLeaf->rightSon = NULL;
-        delete deleteLeaf;
-        treeSize--;
-    }
-    else if (treeRoot->rightSon == NULL && treeRoot->leftSon !=NULL) // If the root have only a left child.
-    {
-        treeRoot = treeRoot->leftSon;
-        deleteLeaf->leftSon = NULL;
-        delete deleteLeaf;
-        treeSize--;
-    }
-    else //If the root have 2 childrens.
-    {
-        smallRightRoot = findSmallest2(treeRoot->rightSon);
-        remove2(smallRightRoot, treeRoot); // removing the smallest value in the right subtree.
-        treeRoot->data = smallRightRoot;
-
-    }
-}
+//     }
+// }
 
 /*
 This function finds the smallest number in the right subtree.
 */
-
-int Tree::findSmallest()
+Node* Tree::findSmallest(Node *root)
 {
-    return findSmallest2(treeRoot);
+    return findSmallest2(root);
 }
 
-int Tree::findSmallest2(Node *parent)
+Node* Tree::findSmallest2(Node *parent)
 {
     if (parent->leftSon != NULL) 
     {
@@ -264,7 +290,7 @@ int Tree::findSmallest2(Node *parent)
     }
     else 
     {
-        return parent->data;
+        return parent;
     }
 }
 
