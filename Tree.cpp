@@ -30,8 +30,14 @@ void Tree::treeDelete(Node *root)
 {
     if(root != nullptr)
     {
-        treeDelete(root->rightSon);
-        treeDelete(root->leftSon);
+        if (root->leftSon != nullptr)
+        {
+            treeDelete(root->leftSon);
+        }
+        if (root->rightSon != nullptr)
+        {
+            treeDelete(root->rightSon);
+        }
         delete root;
     }
 }
