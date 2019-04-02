@@ -13,7 +13,8 @@ using namespace std;
     class Tree {
 
         private:
-        Node* treeRoot;
+        Node *treeRoot;
+        int treeSize;
         
         void insert2(int num, Node *parent);
         bool contains2(int num, Node *root);

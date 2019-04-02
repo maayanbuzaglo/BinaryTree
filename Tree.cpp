@@ -4,8 +4,6 @@
 
 using namespace ariel;
 #define COUNT 10
-Node *treeRoot;
-int treeSize;
 
 /*
 *An empty constructor.
@@ -44,9 +42,14 @@ void Tree::treeDelete(Node *root)
 
 void Tree::insert(int num)
 {
-    if(contains(num)) __throw_invalid_argument("The value is already in the tree."); // Throw an exeption if the value is already in the tree.
+    if(contains(num))
+    {
+        __throw_invalid_argument("The number is already in the tree."); // Throw an exeption if the value is already in the tree.
+        return;
+    }
     else
     {
+        treeSize++;
         insert2(num, treeRoot);
     }
 }
@@ -61,7 +64,7 @@ void Tree::insert2(int num, Node *parent)
     {
         treeRoot = addNewLeaf(num);
     }
-    else if(num < parent->data) //If the parent data is biger go to left son.
+    else if(num < parent->data) //If the parent data is bigger go to left son.
     {
         if(parent->leftSon != NULL) 
         {
@@ -83,7 +86,6 @@ void Tree::insert2(int num, Node *parent)
             parent->rightSon = addNewLeaf(num);
         }
     }
-    treeSize++;
 }
 
 /*
@@ -135,7 +137,7 @@ void Tree::remove2(int num, Node *parent)
         else if(num > parent->data && parent->rightSon != NULL) //Checks if the value needs to be on the right side.
         {
             parent->rightSon->data == num ?
-            removeNum(parent, parent->rightSon, true):
+            removeNum(parent, parent->rightSon, false):
             remove2(num, parent->rightSon); //Gets down untill we find the value.
         }
         else
@@ -149,19 +151,18 @@ void Tree::remove2(int num, Node *parent)
 /*
 *This function helps the remove function.
 */
-
-void Tree::removeNum(Node *parent, Node *node, bool left)
+void Tree::removeNum(Node *parent, Node *son, bool left)
 {
     if(treeRoot != NULL)
     {
         Node *delPtr;
-        int numKey = node->data;
+        int sonKey = son->data;
         int smallInRight;
 
         //If no children:
-        if(node->leftSon == NULL && node->rightSon == NULL)
+        if(son->leftSon == NULL && son->rightSon == NULL)
         {
-            delPtr = node;
+            delPtr = son;
             left == true ?
             parent->leftSon = nullptr:
             parent->rightSon = nullptr;
@@ -170,24 +171,24 @@ void Tree::removeNum(Node *parent, Node *node, bool left)
             treeSize--;
         }
         //If 1 child:
-        else if(node->leftSon == NULL && node->rightSon != NULL)
+        else if(son->leftSon == NULL && son->rightSon != NULL)
         {
             left = true ?
-            parent->leftSon = node->rightSon:
-            parent->rightSon = node->rightSon;
-            node->rightSon = nullptr;
-            delPtr = node;
+            parent->leftSon = son->rightSon:
+            parent->rightSon = son->rightSon;
+            son->rightSon = nullptr;
+            delPtr = son;
             delete delPtr;
             cout << "The number was removed." << endl;
             treeSize--;
         }
-        else if(node->leftSon != NULL && node->rightSon == NULL)
+        else if(son->leftSon != NULL && son->rightSon == NULL)
         {
             left = true ?
-            parent->leftSon = node->leftSon:
-            parent->rightSon = node->leftSon;
-            node->leftSon = NULL;
-            delPtr = node;
+            parent->leftSon = son->leftSon:
+            parent->rightSon = son->leftSon;
+            son->leftSon = NULL;
+            delPtr = son;
             delete delPtr;
             cout << "The number was removed." << endl;
             treeSize--;
@@ -195,9 +196,9 @@ void Tree::removeNum(Node *parent, Node *node, bool left)
         //If 2 children:
         else
         {
-            smallInRight = findSmallest2(node->rightSon);
-            remove2(smallInRight, node);
-            node->data = smallInRight;
+            smallInRight = findSmallest2(son->rightSon);
+            remove2(smallInRight, son);
+            son->data = smallInRight;
         }
     }
     else
@@ -325,8 +326,8 @@ int Tree::root()
 */
 int Tree::parent(int num)
 {
-    if(!contains(num)) __throw_invalid_argument("The value is not in the tree.");
-    if (num == treeRoot->data) __throw_invalid_argument("The value is the root of the tree.");
+    if(!contains(num)) __throw_invalid_argument("The number is not in the tree.");
+    if (num == treeRoot->data) __throw_invalid_argument("The number is the root of the tree.");
     Node *parent = treeRoot;
     Node *buffer = treeRoot;
     while(buffer->data != num)
