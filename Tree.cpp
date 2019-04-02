@@ -108,7 +108,8 @@ void Tree::remove(int num)
 {
     if (contains(num))
     {
-        remove2(num, treeRoot);
+        Node *ptr = treeRoot;
+        remove2(num, ptr);
     }
     else
     {
@@ -121,7 +122,6 @@ void Tree::remove(int num)
 */
 void Tree::remove2(int num, Node *parent)
 {
-
     if(treeRoot->data == num)
     {
         removeRoot(); //If the number = root - delete the root.
@@ -196,9 +196,10 @@ void Tree::removeNum(Node *parent, Node *son, bool left)
         //If 2 children:
         else
         {
-            smallInRight = findSmallest2(son->rightSon);
+            smallInRight = findSmallest2(son->leftSon);
             remove2(smallInRight, son);
             son->data = smallInRight;
+            // delete son->leftSon;
         }
     }
     else

@@ -26,7 +26,6 @@ int main() {
   .CHECK_EQUAL (treeTest.contains(5), false)
   .CHECK_THROWS(treeTest.remove(5))
   .CHECK_EQUAL (treeTest.size() ,0)
-  
   .CHECK_EQUAL (threetree.size(), 3)
   .CHECK_EQUAL (threetree.root(), 5)
   .CHECK_EQUAL (threetree.parent(3), 5)
@@ -35,7 +34,6 @@ int main() {
   .CHECK_EQUAL (threetree.right(5), 7)
   .CHECK_THROWS(threetree.insert(3))
   .CHECK_OK    (threetree.print())
-
   .CHECK_EQUAL (treeTest.size(), 0) //Checks if the tree is empty (the size is 0). 
   .CHECK_EQUAL (treeTest.contains(10), false)
   .CHECK_OK (treeTest.insert(10)) //Checks if inserts 10 to the tree.
@@ -70,19 +68,17 @@ int main() {
   .CHECK_EQUAL (treeTest.left(3), 2) //Checks if 2 is the left son of 3.
   .CHECK_OK(treeTest.remove(3)) //Checks if removes 3 good.
   .CHECK_EQUAL (treeTest.contains(3), false)
-  .print()
   .CHECK_EQUAL (treeTest.size() ,5) //Checks if the size of the tree is 5.
-  // .CHECK_EQUAL (treeTest.parent(6), 2) //Checks if 2 is the parent of 6.
-  // .CHECK_EQUAL (treeTest.left(7), 2) //Checks if 2 is the left son of 7.
-  // .CHECK_EQUAL (treeTest.right(2), 6) //Checks if 6 is the right son of 2.
-  // .CHECK_THROWS(treeTest.left(2)) //Checks if throws exception cause 2 doesn't have a left son.
-  // .CHECK_OK(treeTest.remove(10)) //Check if removes 10.
-  // .CHECK_EQUAL (treeTest.contains(10), false)
-  // .CHECK_EQUAL (treeTest.root(), 7) //Checks if the root of the tree is 7.
-  // .CHECK_EQUAL (treeTest.size() ,4) //Checks if the size of the tree is 4.
-  // .CHECK_THROWS (treeTest.parent(12)) //Checks if 7 is the parent of 12.
-  // .CHECK_THROWS(treeTest.parent(7)) //Checks if throws exception cause 7 is the root so it doesn't have a parent.
-  // .CHECK_OK (treeTest.print()) //Checks if it prints well.
+  .CHECK_EQUAL (treeTest.parent(6), 2) //Checks if 2 is the parent of 6.
+  .CHECK_EQUAL (treeTest.left(7), 2) //Checks if 2 is the left son of 7.
+  .CHECK_EQUAL (treeTest.right(2), 6) //Checks if 6 is the right son of 2.
+  .CHECK_THROWS(treeTest.left(2)) //Checks if throws exception cause 2 doesn't have a left son.
+  .CHECK_OK(treeTest.remove(10)) //Check if removes 10.
+  .CHECK_EQUAL (treeTest.contains(10), false)
+  .CHECK_EQUAL (treeTest.root(), 12) //Checks if the root of the tree is 7.
+  .CHECK_EQUAL (treeTest.size() ,4) //Checks if the size of the tree is 4.
+  .CHECK_THROWS (treeTest.parent(12)) //Checks if 7 is the parent of 12.
+  .CHECK_OK (treeTest.print()) //Checks if it prints well.
   .print();
   
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ".     Great!" << endl;
