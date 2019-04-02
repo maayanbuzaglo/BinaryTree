@@ -196,7 +196,7 @@ void Tree::removeNum(Node *parent, Node *son, bool left)
         //If 2 children:
         else
         {
-            smallInRight = findSmallest2(son->leftSon);
+            smallInRight = findSmallest2(son);
             remove2(smallInRight, son);
             son->data = smallInRight;
             // delete son->leftSon;
