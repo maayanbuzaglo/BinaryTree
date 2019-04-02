@@ -21,7 +21,7 @@ using namespace std;
         void print2(Node *root, int space);
         void treeDelete(Node *root);
         Node* addNewLeaf(int num);
-        // void removeRoot();
+        void removeRoot();
         // void removeNum(Node *parent, Node *node, bool left);
         Node* remove2(int num, Node *parent);
         Node* findSmallest(Node* root);

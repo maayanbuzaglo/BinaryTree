@@ -111,7 +111,10 @@ Node* Tree::remove2(int num, Node* root)
     {
         Node* temp;
         if(root == NULL)
+        {
+            treeSize++;
             return NULL;
+        }
         else if(num < root->data)
             root->leftSon = remove2(num, root->leftSon);
         else if(num > root->data)
@@ -141,8 +144,7 @@ void Tree::remove(int num)
 {
     if (contains(num))
     {
-        Node *ptr = treeRoot;
-        remove2(num, ptr);
+        treeRoot = remove2(num, treeRoot);
         treeSize--;
     }
     else
@@ -290,7 +292,11 @@ Node* Tree::findSmallest(Node *root)
 
 Node* Tree::findSmallest2(Node *parent)
 {
-    if (parent->leftSon != NULL) 
+    if (parent == NULL)
+    {
+        return NULL;
+    }
+    else if (parent->leftSon != NULL) 
     {
         return findSmallest2(parent->leftSon);
     }
@@ -331,7 +337,7 @@ bool Tree::contains2(int num, Node *root)
     if(root->data == num) return true; //Check if the root data = num.
     else
     {
-        if(num < root->data) //If the root data is biger go to left son.
+        if(num < root->data ) //If the root data is biger go to left son.
         {
             return contains2(num, root->leftSon);
         }
@@ -340,6 +346,7 @@ bool Tree::contains2(int num, Node *root)
             return contains2(num, root->rightSon);
         }
     }
+    return false;
 }
 
 /*
