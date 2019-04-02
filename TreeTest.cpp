@@ -34,6 +34,7 @@ int main() {
   .CHECK_EQUAL (threetree.right(5), 7)
   .CHECK_THROWS(threetree.insert(3))
   .CHECK_OK    (threetree.print())
+
   .CHECK_EQUAL (treeTest.size(), 0) //Checks if the tree is empty (the size is 0). 
   .CHECK_EQUAL (treeTest.contains(10), false)
   .CHECK_OK (treeTest.insert(10)) //Checks if inserts 10 to the tree.

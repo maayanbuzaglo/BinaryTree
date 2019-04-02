@@ -5,14 +5,15 @@ namespace ariel {
 using namespace std;
 
     struct Node {
-        int data;
-        Node* rightSon;
-        Node* leftSon;
+        int data; //The value int the tree.
+        Node* rightSon; //A pointer to the right son.
+        Node* leftSon; //A pointer to the right son.
     };
 
     class Tree {
 
-        private:
+        private: //All the private functions.
+
         Node *treeRoot;
         int treeSize;
         
@@ -21,15 +22,12 @@ using namespace std;
         void print2(Node *root, int space);
         void treeDelete(Node *root);
         Node* addNewLeaf(int num);
-        void removeRoot();
-        // void removeNum(Node *parent, Node *node, bool left);
         Node* remove2(int num, Node *parent);
         Node* findSmallest(Node* root);
         Node* findSmallest2(Node *parent);
 
+        public:  //All the public functions.
 
-
-        public:
         Tree();
         ~Tree();
         void insert(int num);
